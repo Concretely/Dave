@@ -66,12 +66,13 @@ class _HomeScreenState extends State<HomeScreen> {
     resourceApiService = ResourceApiService('https://r9rtfzdz-rich1.interopland.com/five-lakes-health-system/fhir/','aW50ZXJvcF9maGlyX3BpdDpaUWUzOWhuSTNUdndwT3lpMjBUdkU2c3h5UEc1TDdaMHk1UkQ=');
   }
 
+
   @override
   Widget build(BuildContext context) {
     this.context = context;
     return SafeArea(
       child: FutureBuilder(
-        future: searchApiService.search("Patient"),
+        future: searchApiService.search("Patient",{"general-practitioner": "6"}),
         builder: (BuildContext context, AsyncSnapshot<Bundle> snapshot) {
           if (snapshot.hasError) {
             return Center(

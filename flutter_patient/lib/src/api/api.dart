@@ -13,9 +13,11 @@ class SearchApiService {
   
   Future<Bundle> search(String resource, [Map<String,String> criteria]) async{
     String criteriastr="";
+    print("hello");
     if(criteria != null)
       criteria.forEach((k,v) => criteriastr +=(k + "=" + v + "&"));
     String url=baseUrl + "/" + resource +"?"+ criteriastr +"_format=json&_count=500";
+    print("URL=" + url);
     final response = await  client.get(url, headers: {"content-type": "application/fhir+json", "Authorization": "Basic $token"});
     return Bundle.fromRawJson(response.body);
   }
