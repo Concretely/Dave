@@ -11,11 +11,15 @@ class SearchApiService {
   SearchApiService(this.baseUrl, this.token);
 
   
-  Future<Bundle> search(String resource, [Map<String,String> criteria= null]) async{
+  Future<Bundle> search(String resource, {Map<String,String> criteria= null, List<String> includes=null}) async{
     String criteriastr="";
+    String includesstr="";
     if(criteria != null)
       criteria.forEach((k,v) => criteriastr +=(k + "=" + v + "&"));
-    String url=baseUrl + "/" + resource +"?"+ criteriastr +"_format=json&_count=500";
+    if(includes !=null)
+      includes.forEach((f) => includesstr += ("_include=" + f+"&"));
+    String url=baseUrl + "/" + resource +"?"+ criteriastr + includesstr + "_format=json&_count=500";
+    //print(url);
     final response = await  client.get(url, headers: {"content-type": "application/fhir+json", "Authorization": "Basic $token"});
     return Bundle.fromRawJson(response.body);
   }
@@ -35,11 +39,14 @@ class ResourceApiService {
     return getResource(json.decode(response.body));
     
   }
-  Future<int> create(String resourceType, Resource resource) async{
+  Future<Resource> create(String resourceType, Resource resource) async{
     String url=baseUrl + resourceType;
    
     final response = await client.post(url, body: resource.toRawJson(), headers: {"content-type": "application/fhir+json", "Authorization": "Basic $token"});
-     return response.statusCode;
+    if(response.statusCode == 201)
+      return getResource(json.decode(response.body));
+    else
+      return null;
   }
   Future<int> delete(String resourceType, String Id) async{
     String url=baseUrl + resourceType +"/"+ Id;
