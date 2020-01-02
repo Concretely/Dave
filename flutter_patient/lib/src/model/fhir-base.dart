@@ -23,7 +23,10 @@ class Address {
   Address.fromJson(Map<String, dynamic> json) {
     use = json['use'];
     type = json['type'];
-    line = json['line'].cast<String>();
+    if(json['line'] != null)
+      line = json['line'].cast<String>();
+    else
+      line = null;
     city = json['city'];
     district = json['district'];
     state = json['state'];

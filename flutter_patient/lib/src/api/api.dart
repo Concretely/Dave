@@ -41,7 +41,8 @@ class ResourceApiService {
     String url=baseUrl + resourceType;
    
     final response = await client.post(url, body: resource.toRawJson(), headers: {"content-type": "application/fhir+json", "Authorization": "Basic $token"});
-     return response.statusCode;
+    print(response.body);
+    return response.statusCode;
   }
   Future<int> delete(String resourceType, String id) async{
     String url=baseUrl + resourceType +"/"+ id;
