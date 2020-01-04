@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_patient/src/api/api.dart';
 import 'package:flutter_patient/src/ui/formadd/form_add_screen.dart';
 import 'package:flutter_patient/src/model/fhir.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 String getName(Patient patient){
@@ -93,7 +94,14 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-
+void launchURL(url) async {
+  print(url);
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
 Widget _buildListView(List<Entry> entry) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
@@ -117,7 +125,15 @@ Widget _buildListView(List<Entry> entry) {
                       //patient.name[0].family,
                       style: Theme.of(context).textTheme.title,
                     ),
-                    Text(getCityState(patient)),
+                    FlatButton(
+                          onPressed: () {
+                            launchURL("https://www.google.com/maps/search/?api=1&query="+getCityState(patient));
+                          },
+                          child: Text(
+                            getCityState(patient),
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                        ),
                     Text(getGender(patient)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
