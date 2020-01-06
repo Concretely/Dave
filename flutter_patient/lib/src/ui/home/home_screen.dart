@@ -93,11 +93,11 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
 void launchURL(url) async {
+  String url="https://www.google.com";
   print(url);
   if (await canLaunch(url)) {
-    await launch(url, forceSafariVC: false);
+    await launch(url, forceSafariVC: false, forceWebView: true);
   } else {
     throw 'Could not launch $url';
   }
