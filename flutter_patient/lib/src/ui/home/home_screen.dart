@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
 void launchURL(url) async {
   print(url);
   if (await canLaunch(url)) {
-    await launch(url);
+    await launch(url, forceSafariVC: false);
   } else {
     throw 'Could not launch $url';
   }
