@@ -94,7 +94,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 void launchURL(url) async {
-  String url="https://www.google.com";
+  url = Uri.encodeFull(url);
+  //String url="https://www.google.com/maps/search/?api=1&query=Austin, TX";
   print(url);
   if (await canLaunch(url)) {
     await launch(url, forceSafariVC: false, forceWebView: true);
