@@ -98,7 +98,7 @@ void launchURL(url) async {
   //String url="https://www.google.com/maps/search/?api=1&query=Austin, TX";
   print(url);
   if (await canLaunch(url)) {
-    await launch(url, forceSafariVC: false, forceWebView: true);
+    await launch(url, forceSafariVC: false);
   } else {
     throw 'Could not launch $url';
   }
