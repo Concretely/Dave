@@ -26,7 +26,7 @@ class Address {
     if(json['line'] != null)
       line = json['line'].cast<String>();
     else
-      line = new List<String>;
+      line = [];
     city = json['city'];
     district = json['district'];
     state = json['state'];

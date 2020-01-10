@@ -4,49 +4,46 @@ import 'package:flutter_patient/src/ui/formadd/form_add_screen.dart';
 import 'package:flutter_patient/src/model/fhir.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
-String getName(Patient patient){
-  if (patient.name == null)
-    return "Unknown Name";
-  for(int i=0; i < patient.name.length; i++)
-    if(patient.name[i].use=="official")
-      if(patient.name[i].given != null)
-        return patient.name[i].given[0] + " " + patient.name[i].family;
-      else return patient.name[i].family;
-  if(patient.name[0].given != null)
+String getName(Patient patient) {
+  if (patient.name == null) return "Unknown Name";
+  for (int i = 0; i < patient.name.length; i++)
+    if (patient.name[i].use == "official") if (patient.name[i].given != null)
+      return patient.name[i].given[0] + " " + patient.name[i].family;
+    else
+      return patient.name[i].family;
+  if (patient.name[0].given != null)
     return patient.name[0].given[0] + " " + patient.name[0].family;
-  if(patient.name[0].family != null)
-    return patient.name[0].family;
-    
+  if (patient.name[0].family != null) return patient.name[0].family;
+
   return "Unknown Name";
 }
 
-String getCityState(Patient patient){
+String getCityState(Patient patient) {
   return getCity(patient) + ", " + getState(patient);
 }
 
-String getCity(Patient patient){
-  if(patient.address != null)
-    return(checkNull(patient.address[0].city,"N/A"));
+String getCity(Patient patient) {
+  if (patient.address != null)
+    return (checkNull(patient.address[0].city, "N/A"));
   else
     return "N/A";
 }
 
-String getState(Patient patient){
-  if(patient.address != null)
-    return(checkNull(patient.address[0].state,"N/A"));
+String getState(Patient patient) {
+  if (patient.address != null)
+    return (checkNull(patient.address[0].state, "N/A"));
   else
     return "N/A";
 }
 
-String checkNull(String str, String rep){
-  if(str==null)
+String checkNull(String str, String rep) {
+  if (str == null)
     return rep;
   else
     return str;
 }
 
-String getGender(patient){
+String getGender(patient) {
   return checkNull(patient.gender, "N/A");
 }
 
@@ -63,17 +60,21 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    searchApiService = SearchApiService('https://r9rtfzdz-rich1.interopland.com/five-lakes-health-system/fhir/','aW50ZXJvcF9maGlyX3BpdDpaUWUzOWhuSTNUdndwT3lpMjBUdkU2c3h5UEc1TDdaMHk1UkQ=');
-    resourceApiService = ResourceApiService('https://r9rtfzdz-rich1.interopland.com/five-lakes-health-system/fhir/','aW50ZXJvcF9maGlyX3BpdDpaUWUzOWhuSTNUdndwT3lpMjBUdkU2c3h5UEc1TDdaMHk1UkQ=');
+    searchApiService = SearchApiService(
+        'https://r9rtfzdz-rich1.interopland.com/five-lakes-health-system/fhir/',
+        'aW50ZXJvcF9maGlyX3BpdDpaUWUzOWhuSTNUdndwT3lpMjBUdkU2c3h5UEc1TDdaMHk1UkQ=');
+    resourceApiService = ResourceApiService(
+        'https://r9rtfzdz-rich1.interopland.com/five-lakes-health-system/fhir/',
+        'aW50ZXJvcF9maGlyX3BpdDpaUWUzOWhuSTNUdndwT3lpMjBUdkU2c3h5UEc1TDdaMHk1UkQ=');
   }
-
 
   @override
   Widget build(BuildContext context) {
     this.context = context;
     return SafeArea(
       child: FutureBuilder(
-        future: searchApiService.search("Patient",{"general-practitioner": "6"}),
+        future:
+            searchApiService.search("Patient", {"general-practitioner": "6"}),
         builder: (BuildContext context, AsyncSnapshot<Bundle> snapshot) {
           if (snapshot.hasError) {
             return Center(
@@ -93,17 +94,19 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-void launchURL(url) async {
-  url = Uri.encodeFull(url);
-  //String url="https://www.google.com/maps/search/?api=1&query=Austin, TX";
-  print(url);
-  if (await canLaunch(url)) {
-    await launch(url, forceSafariVC: false);
-  } else {
-    throw 'Could not launch $url';
+
+  void launchURL(url) async {
+    url = Uri.encodeFull(url);
+    //String url="https://www.google.com/maps/search/?api=1&query=Austin, TX";
+    print(url);
+    if (await canLaunch(url)) {
+      await launch(url, forceSafariVC: false);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
-}
-Widget _buildListView(List<Entry> entry) {
+
+  Widget _buildListView(List<Entry> entry) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       child: ListView.builder(
@@ -111,8 +114,7 @@ Widget _buildListView(List<Entry> entry) {
           Entry e = entry[index];
           Patient patient;
           print(e.resource.resourceType);
-          if(e.resource is Patient)
-            patient = e.resource;
+          if (e.resource is Patient) patient = e.resource;
           return Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: Card(
@@ -126,15 +128,16 @@ Widget _buildListView(List<Entry> entry) {
                       //patient.name[0].family,
                       style: Theme.of(context).textTheme.title,
                     ),
-                    FlatButton(
-                          onPressed: () {
-                            launchURL("https://www.google.com/maps/search/?api=1&query="+getCityState(patient));
-                          },
-                          child: Text(
-                            getCityState(patient),
-                            style: TextStyle(color: Colors.blue),
-                          ),
-                        ),
+                    GestureDetector(
+                        onTap: () {
+                          launchURL(
+                              "https://www.google.com/maps/search/?api=1&query=" +
+                                  getCityState(patient));
+                        },
+                        child: Text(
+                          getCityState(patient),
+                          style: TextStyle(color: Colors.blue),
+                        )),
                     Text(getGender(patient)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -153,9 +156,10 @@ Widget _buildListView(List<Entry> entry) {
                                         child: Text("Yes"),
                                         onPressed: () {
                                           Navigator.pop(context);
-                                          resourceApiService.delete("Patient", patient.id)
+                                          resourceApiService
+                                              .delete("Patient", patient.id)
                                               .then((statusCode) {
-                                            if (statusCode==200) {
+                                            if (statusCode == 200) {
                                               setState(() {});
                                               Scaffold.of(this.context)
                                                   .showSnackBar(SnackBar(
@@ -187,13 +191,10 @@ Widget _buildListView(List<Entry> entry) {
                         ),
                         FlatButton(
                           onPressed: () {
-                            
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
                               return FormAddScreen(patient: patient);
-                            
                             }));
-                          
                           },
                           child: Text(
                             "Edit",
@@ -212,6 +213,4 @@ Widget _buildListView(List<Entry> entry) {
       ),
     );
   }
-
 }
-
