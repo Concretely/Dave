@@ -13,38 +13,27 @@ class App extends StatelessWidget {
         accentColor: Colors.lightBlueAccent,
       ),
       home: Scaffold(
-        key: _scaffoldState,
-        appBar: AppBar(
-          title: Text(
-            "FHIR Patient App",
-            style: TextStyle(
-              color: Colors.white,
+          key: _scaffoldState,
+          appBar: AppBar(
+            title: Text(
+              "FHIR Patient App",
+              style: TextStyle(
+                color: Colors.white,
+              ),
             ),
           ),
-          actions: <Widget>[
-            GestureDetector(
-              onTap: () {
-                
-                Navigator.push(
+          body: HomeScreen(),
+          floatingActionButton: FloatingActionButton(
+              onPressed: () => Navigator.push(
                   _scaffoldState.currentContext,
                   MaterialPageRoute(builder: (BuildContext context) {
                     return FormAddScreen();
                   }),
-                );
-                
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(right: 16.0),
-                child: Icon(
-                  Icons.add,
-                  color: Colors.white,
                 ),
-              ),
-            ),
-          ],
-        ),
-        body: HomeScreen(),
-      ),
+              child: Icon(
+                Icons.add,
+                color: Colors.white,
+              ))),
     );
   }
 }
