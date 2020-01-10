@@ -106,6 +106,43 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void _deleteData(Patient patient) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Warning"),
+            content: Text("Are you sure want to delete patient ${patient.id}?"),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("Yes"),
+                onPressed: () {
+                  Navigator.pop(context);
+                  resourceApiService
+                      .delete("Patient", patient.id)
+                      .then((statusCode) {
+                    if (statusCode == 200) {
+                      setState(() {});
+                      Scaffold.of(this.context).showSnackBar(
+                          SnackBar(content: Text("Delete data success")));
+                    } else {
+                      Scaffold.of(this.context).showSnackBar(
+                          SnackBar(content: Text("Delete data failed")));
+                    }
+                  });
+                },
+              ),
+              FlatButton(
+                child: Text("No"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          );
+        });
+  }
+
   Widget _buildListView(List<Entry> entry) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
@@ -134,55 +171,20 @@ class _HomeScreenState extends State<HomeScreen> {
                               "https://www.google.com/maps/search/?api=1&query=" +
                                   getCityState(patient));
                         },
-                        child: Text(
-                          getCityState(patient),
-                          style: TextStyle(color: Colors.blue),
-                        )),
+                        child: Row(children: [
+                          Text(
+                            getCityState(patient),
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                          Icon(Icons.map, color: Colors.blue),
+                        ])),
                     Text(getGender(patient)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         FlatButton(
                           onPressed: () {
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: Text("Warning"),
-                                    content: Text(
-                                        "Are you sure want to delete patient ${patient.id}?"),
-                                    actions: <Widget>[
-                                      FlatButton(
-                                        child: Text("Yes"),
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                          resourceApiService
-                                              .delete("Patient", patient.id)
-                                              .then((statusCode) {
-                                            if (statusCode == 200) {
-                                              setState(() {});
-                                              Scaffold.of(this.context)
-                                                  .showSnackBar(SnackBar(
-                                                      content: Text(
-                                                          "Delete data success")));
-                                            } else {
-                                              Scaffold.of(this.context)
-                                                  .showSnackBar(SnackBar(
-                                                      content: Text(
-                                                          "Delete data failed")));
-                                            }
-                                          });
-                                        },
-                                      ),
-                                      FlatButton(
-                                        child: Text("No"),
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                      )
-                                    ],
-                                  );
-                                });
+                            _deleteData(patient);
                           },
                           child: Text(
                             "Delete",

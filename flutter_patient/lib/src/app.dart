@@ -9,14 +9,14 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: Colors.lightBlue,
-        accentColor: Colors.lightBlueAccent,
+        primaryColor: Colors.grey[700],
+        accentColor: Colors.grey[500],
       ),
       home: Scaffold(
           key: _scaffoldState,
           appBar: AppBar(
             title: Text(
-              "FHIR Patient App",
+              "FHIR Patient Maintenance",
               style: TextStyle(
                 color: Colors.white,
               ),

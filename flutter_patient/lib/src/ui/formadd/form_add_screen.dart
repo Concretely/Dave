@@ -54,7 +54,7 @@ class _FormAddScreenState extends State<FormAddScreen> {
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.white),
         title: Text(
-          widget.patient == null ? "Form Add" : "Change Data",
+          widget.patient == null ? "Add Patient" : "Modify Patient",
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -169,7 +169,7 @@ class _FormAddScreenState extends State<FormAddScreen> {
                         });
                       }
                     },
-                    color: Colors.blue,
+                    //color: Colors.blue,
                   ),
                 )
               ],
