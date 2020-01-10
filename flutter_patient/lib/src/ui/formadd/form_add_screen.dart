@@ -23,13 +23,14 @@ class _FormAddScreenState extends State<FormAddScreen> {
   bool _isFieldCityValid;
   bool _isFieldStateValid;
   bool _isFieldGenderValid;
-  
+  String newGender;
+
   TextEditingController _controllerFirstName = TextEditingController();
   TextEditingController _controllerLastName = TextEditingController();
   TextEditingController _controllerCity = TextEditingController();
   TextEditingController _controllerState = TextEditingController();
   TextEditingController _controllerGender = TextEditingController();
-
+  
   @override
   void initState() {
     if (widget.patient != null) {
@@ -43,6 +44,9 @@ class _FormAddScreenState extends State<FormAddScreen> {
       _controllerState.text = widget.patient.address[0].state;
       _isFieldGenderValid = true;
       _controllerGender.text = widget.patient.gender;
+      newGender=widget.patient.gender;
+    }else{
+      newGender = 'male';
     }
     super.initState();
   }
@@ -69,7 +73,8 @@ class _FormAddScreenState extends State<FormAddScreen> {
                 _buildTextFieldLastName(),
                 _buildTextFieldCity(),
                 _buildTextFieldState(),
-                _buildTextFieldGender(),
+                //_buildTextFieldGender(),
+                _buildGenderDropdown(),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: RaisedButton(
@@ -104,7 +109,7 @@ class _FormAddScreenState extends State<FormAddScreen> {
                       String lastname = _controllerLastName.text.toString();
                       String city = _controllerCity.text.toString();
                       String state = _controllerState.text.toString();
-                      String gender = _controllerGender.text.toString();
+                      //String gender = _controllerGender.text.toString();
                       
                       //Profile profile =
                       //    Profile(name: name, email: email, age: age);
@@ -129,7 +134,7 @@ class _FormAddScreenState extends State<FormAddScreen> {
                         patient.address.add(new Address());
                         patient.address[0].city=city;
                         patient.address[0].state=state;
-                        patient.gender=gender;
+                        patient.gender=newGender;
                         patient.generalPractitioner=[];
                         patient.generalPractitioner.add(new Reference());
                         patient.generalPractitioner[0].reference = "Practitioner/6";
@@ -154,7 +159,7 @@ class _FormAddScreenState extends State<FormAddScreen> {
                         patient.name[0].family=lastname;
                         patient.address[0].city=city;
                         patient.address[0].state=state;
-                        patient.gender=gender;
+                        patient.gender=newGender;
 
                         
                         resourceApiService.update("Patient", patient).then((statusCode) {
@@ -196,6 +201,28 @@ class _FormAddScreenState extends State<FormAddScreen> {
     );
   }
 
+  Widget _buildGenderDropdown(){
+    return DropdownButton<String>(
+      value: newGender,
+      icon: Icon(Icons.arrow_downward),
+      iconSize: 24,
+      elevation: 16,
+      style: TextStyle(color: Colors.deepPurple),
+      underline: Container(
+        height: 2,
+        color: Colors.deepPurpleAccent,
+      ),
+      onChanged: (String newValue) {setState(() => newGender = newValue);},
+      items: <String>['male','female']
+          .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+    );
+  }
+  
   Widget _buildTextFieldFirstName() {
     return TextField(
       controller: _controllerFirstName,
