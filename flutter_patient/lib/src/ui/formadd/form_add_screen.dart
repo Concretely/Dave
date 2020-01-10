@@ -22,14 +22,14 @@ class _FormAddScreenState extends State<FormAddScreen> {
   bool _isFieldLastNameValid;
   bool _isFieldCityValid;
   bool _isFieldStateValid;
-  bool _isFieldGenderValid;
+  //bool _isFieldGenderValid;
   String newGender;
 
   TextEditingController _controllerFirstName = TextEditingController();
   TextEditingController _controllerLastName = TextEditingController();
   TextEditingController _controllerCity = TextEditingController();
   TextEditingController _controllerState = TextEditingController();
-  TextEditingController _controllerGender = TextEditingController();
+  //TextEditingController _controllerGender = TextEditingController();
   
   @override
   void initState() {
@@ -42,8 +42,8 @@ class _FormAddScreenState extends State<FormAddScreen> {
       _controllerCity.text = widget.patient.address[0].city;
       _isFieldStateValid = true;
       _controllerState.text = widget.patient.address[0].state;
-      _isFieldGenderValid = true;
-      _controllerGender.text = widget.patient.gender;
+      //_isFieldGenderValid = true;
+      //_controllerGender.text = widget.patient.gender;
       newGender=widget.patient.gender;
     }else{
       newGender = 'male';
@@ -91,12 +91,11 @@ class _FormAddScreenState extends State<FormAddScreen> {
                           _isFieldLastNameValid == null ||
                           _isFieldCityValid == null ||
                           _isFieldStateValid == null ||
-                          _isFieldGenderValid == null ||
                           !_isFieldFirstNameValid ||
                           !_isFieldLastNameValid ||
                           !_isFieldCityValid ||
-                          !_isFieldStateValid ||
-                          !_isFieldGenderValid) {
+                          !_isFieldStateValid
+                          ) {
                         _scaffoldState.currentState.showSnackBar(
                           SnackBar(
                             content: Text("Please fill all field"),
@@ -299,23 +298,5 @@ class _FormAddScreenState extends State<FormAddScreen> {
     );
   }
 
-  Widget _buildTextFieldGender() {
-    return TextField(
-      controller: _controllerGender,
-      keyboardType: TextInputType.text,
-      decoration: InputDecoration(
-        labelText: "Gender",
-        errorText: _isFieldGenderValid == null || _isFieldGenderValid
-            ? null
-            : "Gender is required",
-      ),
-      onChanged: (value) {
-        bool isFieldValid = value.trim().isNotEmpty;
-        if (isFieldValid != _isFieldGenderValid) {
-          setState(() => _isFieldGenderValid = isFieldValid);
-        }
-      },
-    );
-  }
 }
 
