@@ -203,13 +203,13 @@ class _FormAddScreenState extends State<FormAddScreen> {
   Widget _buildGenderDropdown(){
     return DropdownButton<String>(
       value: newGender,
-      icon: Icon(Icons.arrow_downward),
+     // icon: Icon(Icons),
       iconSize: 24,
       elevation: 16,
-      style: TextStyle(color: Colors.deepPurple),
+      //style: TextStyle(color: Colors.deepPurple),
       underline: Container(
         height: 2,
-        color: Colors.deepPurpleAccent,
+        //color: Colors.deepPurpleAccent,
       ),
       onChanged: (String newValue) {setState(() => newGender = newValue);},
       items: <String>['male','female']
