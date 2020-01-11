@@ -165,19 +165,29 @@ class _HomeScreenState extends State<HomeScreen> {
                       //patient.name[0].family,
                       style: Theme.of(context).textTheme.title,
                     ),
+                    SizedBox(height: 2),
                     GestureDetector(
-                        onTap: () {
-                          launchURL(
-                              "https://www.google.com/maps/search/?api=1&query=" +
-                                  getCityState(patient));
-                        },
-                        child: Row(children: [
+                      onTap: () {
+                        launchURL(
+                            "https://www.google.com/maps/search/?api=1&query=" +
+                                getCityState(patient));
+                      },
+                      child: Row(
+                        children: [
                           Text(
                             getCityState(patient),
                             style: TextStyle(color: Colors.blue),
                           ),
-                          Icon(Icons.map, color: Colors.blue),
-                        ])),
+                          SizedBox(width: 8),
+                          Icon(
+                            Icons.map,
+                            color: Colors.blue,
+                            size: 18.0,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 2),
                     Text(getGender(patient)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,

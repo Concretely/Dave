@@ -15,21 +15,28 @@ class App extends StatelessWidget {
       home: Scaffold(
           key: _scaffoldState,
           appBar: AppBar(
-            title: Text(
-              "FHIR Patient Maintenance",
-              style: TextStyle(
-                color: Colors.white,
-              ),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Icon(Icons.local_hospital),
+                SizedBox(width:4),
+                Text(
+                  "FHIR Patient Maintenance",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ],
             ),
           ),
           body: HomeScreen(),
           floatingActionButton: FloatingActionButton(
               onPressed: () => Navigator.push(
-                  _scaffoldState.currentContext,
-                  MaterialPageRoute(builder: (BuildContext context) {
-                    return FormAddScreen();
-                  }),
-                ),
+                    _scaffoldState.currentContext,
+                    MaterialPageRoute(builder: (BuildContext context) {
+                      return FormAddScreen();
+                    }),
+                  ),
               child: Icon(
                 Icons.add,
                 color: Colors.white,
