@@ -42,8 +42,6 @@ class _FormAddScreenState extends State<FormAddScreen> {
       _controllerCity.text = widget.patient.address[0].city;
       _isFieldStateValid = true;
       _controllerState.text = widget.patient.address[0].state;
-      //_isFieldGenderValid = true;
-      //_controllerGender.text = widget.patient.gender;
       newGender=widget.patient.gender;
     }else{
       newGender = 'male';
@@ -173,7 +171,7 @@ class _FormAddScreenState extends State<FormAddScreen> {
                         });
                       }
                     },
-                    //color: Colors.blue,
+                    color: Colors.grey[500],
                   ),
                 )
               ],

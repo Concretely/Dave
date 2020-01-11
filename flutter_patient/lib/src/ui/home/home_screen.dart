@@ -182,7 +182,31 @@ class _HomeScreenState extends State<HomeScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
-                        FlatButton(
+                        GestureDetector(
+                          child: Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
+                          onTap: () {
+                            _deleteData(patient);
+                          },
+                        ),
+                        GestureDetector(
+                            child: Icon(
+                              Icons.edit,
+                              color: Colors.grey[500],
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return FormAddScreen(patient: patient);
+                                  },
+                                ),
+                              );
+                            }),
+                        /*FlatButton(
                           onPressed: () {
                             _deleteData(patient);
                           },
@@ -202,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             "Edit",
                             style: TextStyle(color: Colors.blue),
                           ),
-                        ),
+                        ),*/
                       ],
                     ),
                   ],
