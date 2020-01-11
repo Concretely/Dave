@@ -142,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         });
   }
-
+  String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
   Widget _buildListView(List<Entry> entry) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
@@ -180,15 +180,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           SizedBox(width: 8),
                           Icon(
-                            Icons.map,
+                            Icons.edit_location,
                             color: Colors.blue,
-                            size: 18.0,
+                            size: 16.0,
                           ),
                         ],
                       ),
                     ),
                     SizedBox(height: 2),
-                    Text(getGender(patient)),
+                    Text(capitalize(getGender(patient))),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
@@ -196,14 +196,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Icon(
                             Icons.delete,
                             color: Colors.red,
+                            size:24.0,
                           ),
                           onTap: () {
                             _deleteData(patient);
                           },
                         ),
+                        SizedBox(width:10),
                         GestureDetector(
                             child: Icon(
                               Icons.edit,
+                              size:24.0,
                               color: Colors.grey[500],
                             ),
                             onTap: () {

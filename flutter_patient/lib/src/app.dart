@@ -23,7 +23,7 @@ class App extends StatelessWidget {
                 ),
                 SizedBox(width: 4),
                 Text(
-                  "FHIR Patient Maintenance",
+                  "FHIR Patient",
                   style: TextStyle(
                     color: Colors.white,
                   ),
