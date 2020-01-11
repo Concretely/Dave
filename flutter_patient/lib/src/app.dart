@@ -18,8 +18,10 @@ class App extends StatelessWidget {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Icon(Icons.local_hospital),
-                SizedBox(width:4),
+                Icon(
+                  Icons.local_hospital,
+                ),
+                SizedBox(width: 4),
                 Text(
                   "FHIR Patient Maintenance",
                   style: TextStyle(
