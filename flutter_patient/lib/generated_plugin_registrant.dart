@@ -1,7 +1,6 @@
 //
 // Generated file. Do not edit.
 //
-import 'dart:ui';
 
 import 'package:url_launcher_web/url_launcher_web.dart';
 

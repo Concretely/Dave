@@ -206,27 +206,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               );
                             }),
-                        /*FlatButton(
-                          onPressed: () {
-                            _deleteData(patient);
-                          },
-                          child: Text(
-                            "Delete",
-                            style: TextStyle(color: Colors.red),
-                          ),
-                        ),
-                        FlatButton(
-                          onPressed: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return FormAddScreen(patient: patient);
-                            }));
-                          },
-                          child: Text(
-                            "Edit",
-                            style: TextStyle(color: Colors.blue),
-                          ),
-                        ),*/
                       ],
                     ),
                   ],
