@@ -190,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(height: 2),
                     Text(capitalize(getGender(patient))),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         GestureDetector(
                           child: Icon(
@@ -202,7 +202,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             _deleteData(patient);
                           },
                         ),
-                        SizedBox(width:10),
+                        SizedBox(width:16),
                         GestureDetector(
                             child: Icon(
                               Icons.edit,
