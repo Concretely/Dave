@@ -142,6 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         });
   }
+
   String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
   Widget _buildListView(List<Entry> entry) {
     return Padding(
@@ -160,11 +161,47 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      getName(patient),
-                      //patient.name[0].family,
-                      style: Theme.of(context).textTheme.title,
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            getName(patient),
+                            //patient.name[0].family,
+                            style: Theme.of(context).textTheme.title,
+                          ),
+                          Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        GestureDetector(
+                          child: Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                            size: 24.0,
+                          ),
+                          onTap: () {
+                            _deleteData(patient);
+                          },
+                        ),
+                        SizedBox(width: 16),
+                        GestureDetector(
+                            child: Icon(
+                              Icons.edit,
+                              size: 24.0,
+                              color: Colors.grey[500],
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return FormAddScreen(patient: patient);
+                                  },
+                                ),
+                              );
+                            }),
+                      ],
                     ),
+                        ]),
                     SizedBox(height: 2),
                     GestureDetector(
                       onTap: () {
@@ -189,38 +226,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     SizedBox(height: 2),
                     Text(capitalize(getGender(patient))),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        GestureDetector(
-                          child: Icon(
-                            Icons.delete,
-                            color: Colors.red,
-                            size:24.0,
-                          ),
-                          onTap: () {
-                            _deleteData(patient);
-                          },
-                        ),
-                        SizedBox(width:16),
-                        GestureDetector(
-                            child: Icon(
-                              Icons.edit,
-                              size:24.0,
-                              color: Colors.grey[500],
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return FormAddScreen(patient: patient);
-                                  },
-                                ),
-                              );
-                            }),
-                      ],
-                    ),
+                    SizedBox(height: 8),
+                    
+                    
                   ],
                 ),
               ),
@@ -229,6 +237,8 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         itemCount: entry.length,
       ),
+      
     );
+
   }
 }

@@ -20,6 +20,7 @@ void main() async {
   Patient patient = createPatientObject("John", "Smith", "3820 Remington Rd", "Cedar Park", "TX", "78613");
   patient = await ras.create("Patient", patient);
   print("Patient/"+ patient.id);
+  
   Appointment appointment = createAppointmentObject(patient.id
     , patient.name[0].given[0] + " " + patient.name[0].family
     , practitioner.id, practitioner.name[0].prefix[0] + " " + practitioner.name[0].family
