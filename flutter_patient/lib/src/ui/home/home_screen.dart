@@ -62,10 +62,10 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     searchApiService = SearchApiService(
         'https://r9rtfzdz-rich1.interopland.com/five-lakes-health-system/fhir/',
-        'aW50ZXJvcF9maGlyX3BpdDpaUWUzOWhuSTNUdndwT3lpMjBUdkU2c3h5UEc1TDdaMHk1UkQ=');
+        '');
     resourceApiService = ResourceApiService(
         'https://r9rtfzdz-rich1.interopland.com/five-lakes-health-system/fhir/',
-        'aW50ZXJvcF9maGlyX3BpdDpaUWUzOWhuSTNUdndwT3lpMjBUdkU2c3h5UEc1TDdaMHk1UkQ=');
+        '');
   }
 
   @override
