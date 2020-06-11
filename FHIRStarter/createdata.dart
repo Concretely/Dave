@@ -6,8 +6,7 @@ import 'fhir-base.dart';
 void main() async {
   String baseURL =
       "https://r9rtfzdz-rich1.interopland.com/five-lakes-health-system/fhir/";
-  String token =
-      "aW50ZXJvcF9maGlyX3BpdDpaUWUzOWhuSTNUdndwT3lpMjBUdkU2c3h5UEc1TDdaMHk1UkQ=";
+  String token = "";
   ResourceApiService ras = new ResourceApiService(baseURL, token);
 
 
