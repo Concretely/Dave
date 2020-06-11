@@ -61,10 +61,10 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     searchApiService = SearchApiService(
-        'https://r9rtfzdz-rich1.interopland.com/five-lakes-health-system/fhir/',
+        '',
         '');
     resourceApiService = ResourceApiService(
-        'https://r9rtfzdz-rich1.interopland.com/five-lakes-health-system/fhir/',
+        '',
         '');
   }
 
